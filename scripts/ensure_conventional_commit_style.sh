@@ -15,7 +15,8 @@ ALLOWED_TYPES=$(grep -w allowed_types "$ROOT_DIR"/pyproject.toml | sed -r 's/.*\
 
 PATTERN="^($ALLOWED_TYPES)(\(.*\))?: (.*)"
 if ! [[ $MSG =~ $PATTERN ]]; then
-  echo >&2 "Invalid commit message format. Please use the conventional commit style
+  echo >&2 "Invalid commit message: \"$MSG\".
+Please use the conventional commit style
   <type>: <description>
 or
   <type>(<scope>): <description>
