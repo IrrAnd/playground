@@ -7,7 +7,13 @@ authors = [
     { name = "IrrAnd", email = "184002004+IrrAnd@users.noreply.github.com" }
 ]
 requires-python = ">=3.13"
+# Project dependencies for libraries should specify a range of compatible versions, allowing users to choose the version that works best for their project.
 dependencies = []
+# Development dependencies should be pinned to ensure reproducibility and prevent unexpected changes in the build process.
+[dependency-groups]
+dev = [
+    "pytest==7.0.*",
+]
 
 [build-system]
 requires = ["hatchling"]
