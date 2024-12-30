@@ -9,7 +9,7 @@ authors = [
 requires-python = ">=3.13"
 # Project dependencies for libraries should specify a range of compatible versions, allowing users to choose the version that works best for their project.
 dependencies = [
-    "numpy~=1.1",
+    "numpy>=1.1,<2",
 ]
 # Development dependencies should be pinned to ensure reproducibility and prevent unexpected changes in the build process.
 [dependency-groups]
