@@ -1,0 +1,31 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "automerge": true,
+  "automergeType": "pr",
+  "dependencyDashboard": true,
+  "extends": [
+    "config:best-practices",
+    "schedule:monthly"
+  ],
+  "lockFileMaintenance": {
+    "enabled": false
+  },
+  "packageRules": [
+    {
+      "matchDepTypes": [
+        "project.dependencies",
+        "project.optional-dependencies"
+      ],
+      "rangeStrategy": "widen"
+    },
+    {
+      "matchDepTypes": [
+        "dependency-groups"
+      ],
+      "rangeStrategy": "pin"
+    }
+  ],
+  "platformAutomerge": true,
+  "semanticCommits": "enabled",
+  "timezone": "Europe/Berlin"
+}
