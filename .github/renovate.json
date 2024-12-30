@@ -1,7 +1,4 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    ":widenPeerDependencies",
-    "config:best-practices"
-  ]
+  "rangeStrategy": "widen"
 }
