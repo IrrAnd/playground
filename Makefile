@@ -10,7 +10,11 @@ SHELL := /bin/bash
 # The @ ensures that the command itself is not echoed in the terminal:
 help:
 	@echo "Available targets:"
+	@echo "  make docs: Generate project documentation"
 	@echo "  make test: Execute all tests"
+
+docs:
+	(cd docs && uv run --cache-dir ../.uv_cache --group docs -- make clean html)
 
 test: test_commit_message
 
