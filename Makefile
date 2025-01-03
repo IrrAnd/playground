@@ -2,7 +2,7 @@
 SHELL := /bin/bash
 
 # .PHONY defines parts of the Makefile that are not dependent on any specific file.
-.PHONY = help test test_commit_message
+.PHONY = help doc test test_commit_message
 
 # Defines the default target that `make` will to try to make, or in the case of a phony target, execute the specified commands.
 .DEFAULT_GOAL := help
@@ -10,7 +10,11 @@ SHELL := /bin/bash
 # The @ ensures that the command itself is not echoed in the terminal:
 help:
 	@echo "Available targets:"
+	@echo "  make doc : Generate project documentation"
 	@echo "  make test: Execute all tests"
+
+doc:
+	(cd docs && uv run --cache-dir ../.uv_cache --group docs -- make clean html)
 
 test: test_commit_message
 
