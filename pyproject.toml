@@ -35,7 +35,7 @@ commit_parser = "angular"
 major_on_zero = true
 allow_zero_version = true
 tag_format = "v{version}"
-version_variables = ["src/playground/__init__.py:__version__"]
+version_variables = ["src/playground/__init__.py:__version__", "docs/source/conf.py:release"]
 version_toml = ["pyproject.toml:project.version"]
 
 [tool.semantic_release.branches.main]
