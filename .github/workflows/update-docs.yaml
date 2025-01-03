@@ -1,0 +1,62 @@
+name: Update documentation on GitHub Pages
+
+on:
+  workflow_run:
+    workflows: [ "Update changelog and version" ]
+    types: [ completed ]
+
+concurrency:
+  group: "update"
+  cancel-in-progress: false
+
+jobs:
+  # Build job
+  build-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup | Checkout Repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - name: Setup | Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Setup | Install Python
+        run: uv python install
+
+      - name: Run | Build static HTML documentation using Sphinx
+        id: build
+        run: make doc
+
+      - name: Run | Upload static files as artifact
+        id: deployment
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/build/html/
+
+      - name: Post Setup | Minimize uv cache
+        run: uv cache prune --ci
+
+  # Deployment job
+  deploy-docs:
+    # Add a dependency to the build job
+    needs: build-docs
+
+    # Grant GITHUB_TOKEN the permissions required to make a GitHub Pages deployment
+    permissions:
+      pages: write      # to deploy to GitHub Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
+
+    # Deploy to the GitHub Pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run | Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
