@@ -28,7 +28,7 @@ jobs:
 
       - name: Run | Build static HTML documentation using Sphinx
         id: build
-        run: make doc
+        run: make docs
 
       - name: Run | Upload static files as artifact
         id: deployment
