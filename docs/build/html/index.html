@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Monitor</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Table Styles */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+<h1>Build Monitor</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Repository</th>
+        <th>Branch</th>
+        <th>Build Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>NumPy</td>
+        <td>default</td>
+        <td><img src="https://github.com/numpy/numpy/actions/workflows/circleci.yml/badge.svg" alt="NumPy Build Status"></td>
+    </tr>
+    <tr>
+        <td>Playground</td>
+        <td>renovate/configure</td>
+        <td><img src="https://github.com/IrrAnd/playground/actions/workflows/ci.yaml/badge.svg?branch=renovate/configure" alt="Playground Build Status"></td>
+    </tr>
+    </tbody>
+</table>
+<p>Refresh the page to update information.</p>
+</body>
+</html>

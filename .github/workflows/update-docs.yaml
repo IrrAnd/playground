@@ -26,9 +26,9 @@ jobs:
       - name: Setup | Install Python
         run: uv python install
 
-      - name: Run | Build static HTML documentation using Sphinx
-        id: build
-        run: make doc
+#      - name: Run | Build static HTML documentation using Sphinx
+#        id: build
+#        run: make doc
 
       - name: Run | Upload static files as artifact
         id: deployment
