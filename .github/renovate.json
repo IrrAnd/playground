@@ -3,10 +3,7 @@
   "automerge": true,
   "automergeType": "pr",
   "dependencyDashboard": true,
-  "extends": [
-    "config:best-practices",
-    "schedule:monthly"
-  ],
+  "extends": ["config:best-practices", "schedule:monthly"],
   "lockFileMaintenance": {
     "enabled": false
   },
@@ -19,12 +16,13 @@
       "rangeStrategy": "widen"
     },
     {
-      "matchDepTypes": [
-        "dependency-groups"
-      ],
+      "matchDepTypes": ["dependency-groups"],
       "rangeStrategy": "pin"
     }
   ],
+  "pre-commit": {
+    "enabled": true
+  },
   "platformAutomerge": true,
   "semanticCommits": "enabled",
   "timezone": "Europe/Berlin"

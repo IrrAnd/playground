@@ -2,8 +2,8 @@ name: Update documentation on GitHub Pages
 
 on:
   workflow_run:
-    workflows: [ "Update changelog and version" ]
-    types: [ completed ]
+    workflows: ["Update changelog and version"]
+    types: [completed]
 
 concurrency:
   group: "update"
@@ -18,12 +18,13 @@ jobs:
       - name: Setup | Checkout Repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
-      - name: Setup | Install uv
+      - name: Setup | Install uv # https://docs.astral.sh/uv/guides/integration/github/#using-uv-in-github-actions
         uses: astral-sh/setup-uv@1edb52594c857e2b5b13128931090f0640537287 # v5
         with:
           enable-cache: true
+          cache-dependency-glob: "uv.lock"
 
-      - name: Setup | Install Python
+      - name: Setup | Install Python # https://docs.astral.sh/uv/guides/integration/github/#setting-up-python
         run: uv python install
 
       - name: Run | Build static HTML documentation using Sphinx
@@ -36,7 +37,7 @@ jobs:
         with:
           path: docs/build/html/
 
-      - name: Post Setup | Minimize uv cache
+      - name: Post Setup | Minimize uv cache # https://docs.astral.sh/uv/guides/integration/github/#caching
         run: uv cache prune --ci
 
   # Deployment job
@@ -46,8 +47,8 @@ jobs:
 
     # Grant GITHUB_TOKEN the permissions required to make a GitHub Pages deployment
     permissions:
-      pages: write      # to deploy to GitHub Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
+      pages: write # to deploy to GitHub Pages
+      id-token: write # to verify the deployment originates from an appropriate source
 
     # Deploy to the GitHub Pages environment
     environment:
