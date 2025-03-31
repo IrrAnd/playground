@@ -31,7 +31,7 @@ jobs:
           echo "PYTHON_VERSION_HASH=$(uvx python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
 
       - name: Setup | Restore pre-commit cache # https://pre-commit.com/#github-actions-example
-        uses: actions/cache@v4
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4
         with:
           path: ~/.cache/pre-commit
           key: pre-commit|${{ env.PYTHON_VERSION_HASH }}|${{ hashFiles('.pre-commit-config.yaml') }}
