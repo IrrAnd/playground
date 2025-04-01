@@ -24,7 +24,7 @@ jobs:
       # ruleset. See also: https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/making-authenticated-api-requests-with-a-github-app-in-a-github-actions-workflow#authenticating-with-a-github-app
       - name: Setup | Generate a token that bypasses branch protection rules
         id: generate-token
-        uses: actions/create-github-app-token@0d564482f06ca65fa9e77e2510873638c82206f2 # v1
+        uses: actions/create-github-app-token@d72941d797fd3113feb6b93fd0dec494b13a2547 # v1
         with:
           app-id: ${{ vars.APP_ID_BOT_WITH_CONTENT_PERMISSION }}
           private-key: ${{ secrets.APP_PRIVATE_KEY_BOT_WITH_CONTENT_PERMISSION }}
