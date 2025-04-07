@@ -36,10 +36,8 @@ jobs:
           path: ~/.cache/pre-commit
           key: pre-commit|${{ env.PYTHON_VERSION_HASH }}|${{ hashFiles('.pre-commit-config.yaml') }}
 
-      - name: Run | Pre-commit # https://pre-commit.com/#usage-in-continuous-integration
-        run: |
-          uv tool install pre-commit
-          pre-commit run --all-files
+      - name: Setup | Install pre-commit # https://pre-commit.com/#usage-in-continuous-integration
+        run: uv tool install pre-commit
 
       - name: Run | Test
         run: make test
