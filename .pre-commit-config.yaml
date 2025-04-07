@@ -1,6 +1,7 @@
 # Run against all files: pre-commit run --all-files
 # Update revisions: pre-commit autoupdate
 default_install_hook_types: [pre-commit, commit-msg]
+default_stages: [pre-commit]
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0

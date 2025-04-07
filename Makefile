@@ -22,8 +22,14 @@ test: test_commit_message
 
 .PHONY: test_commit_message
 test_commit_message:
-	@echo "Testing adherence to conventional commit style"
-	@while read -r line; do scripts/ensure_conventional_commit_style.sh <(echo "$$line"); done < <(git log origin/main..HEAD --format=%s)
+	@tmpfile=$$(mktemp) && trap 'rm -f "$$tmpfile"' EXIT && \
+	git log origin/main..HEAD --format=%s | \
+	while read -r line; do \
+		echo "$$line" > "$$tmpfile" && \
+		if ! pre-commit run --hook-stage commit-msg --commit-msg-filename "$$tmpfile"; then \
+		  exit 1; \
+		fi; \
+	done
 
 .PHONY: git-hooks
 git-hooks:
