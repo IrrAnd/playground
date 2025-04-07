@@ -9,20 +9,21 @@ SHELL := /bin/bash
 help:
 # The @ ensures that the command itself is not echoed in the terminal:
 	@echo "Available targets:"
-	@echo "  make docs .............. Generate project documentation"
-	@echo "  make git-hooks ......... Install Git hooks"
-	@echo "  make test .............. Execute all tests"
-	@echo "  make test_pre_commit ... Execute pre-commit tests"
+	@echo "  make docs ............... Generate project documentation"
+	@echo "  make git-hooks .......... Install Git hooks"
+	@echo "  make pre-commit-check ... Check whether pre-commit is installed"
+	@echo "  make pre-commit-tests ... Execute pre-commit tests"
+	@echo "  make test ............... Execute all tests"
 
 .PHONY: docs
 docs:
 	(cd docs && uv run --cache-dir ../.uv_cache --group docs -- make clean html)
 
 .PHONY: test
-test: test_pre_commit
+test: pre-commit-tests
 
-.PHONY: test_pre_commit
-test_pre_commit:
+.PHONY: pre-commit-tests
+pre-commit-tests: pre-commit-check
 	@pre-commit run --hook-stage pre-commit --all-files
 	@tmpfile=$$(mktemp) && trap 'rm -f "$$tmpfile"' EXIT && \
 	git log origin/main..HEAD --format=%s | \
@@ -33,11 +34,13 @@ test_pre_commit:
 		fi; \
 	done
 
+.PHONY: pre-commit-check
+pre-commit-check:
+	@if ! command -v pre-commit &> /dev/null; then \
+		echo "Error: pre-commit (https://pre-commit.com) is not installed. Use, e.g., uv (https://docs.astral.sh/uv/guides/tools/#installing-tools), to install it via: uv tool install pre-commit."; \
+		exit 1; \
+	fi
+
 .PHONY: git-hooks
-git-hooks:
-ifeq ($(shell command -v pre-commit 2>/dev/null),)
-	@echo "Pre-commit command (https://pre-commit.com) does not exist"
-	@echo "Use, e.g., uv (https://docs.astral.sh/uv/guides/tools/#installing-tools), to install it via: uv tool install pre-commit"
-else
+git-hooks: pre-commit-check
 	@pre-commit install # https://pre-commit.com/#3-install-the-git-hook-scripts
-endif
