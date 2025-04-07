@@ -37,7 +37,9 @@ jobs:
           key: pre-commit|${{ env.PYTHON_VERSION_HASH }}|${{ hashFiles('.pre-commit-config.yaml') }}
 
       - name: Run | Pre-commit # https://pre-commit.com/#usage-in-continuous-integration
-        run: uvx pre-commit run --all-files
+        run: |
+          uv tool install pre-commit
+          pre-commit run --all-files
 
       - name: Run | Test
         run: make test
