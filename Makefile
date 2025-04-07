@@ -9,19 +9,21 @@ SHELL := /bin/bash
 help:
 # The @ ensures that the command itself is not echoed in the terminal:
 	@echo "Available targets:"
-	@echo "  make docs ........ Generate project documentation"
-	@echo "  make git-hooks ... Install Git hooks"
-	@echo "  make test ........ Execute all tests"
+	@echo "  make docs .............. Generate project documentation"
+	@echo "  make git-hooks ......... Install Git hooks"
+	@echo "  make test .............. Execute all tests"
+	@echo "  make test_pre_commit ... Execute pre-commit tests"
 
 .PHONY: docs
 docs:
 	(cd docs && uv run --cache-dir ../.uv_cache --group docs -- make clean html)
 
 .PHONY: test
-test: test_commit_message
+test: test_pre_commit
 
-.PHONY: test_commit_message
-test_commit_message:
+.PHONY: test_pre_commit
+test_pre_commit:
+	@pre-commit run --hook-stage pre-commit --all-files
 	@tmpfile=$$(mktemp) && trap 'rm -f "$$tmpfile"' EXIT && \
 	git log origin/main..HEAD --format=%s | \
 	while read -r line; do \
