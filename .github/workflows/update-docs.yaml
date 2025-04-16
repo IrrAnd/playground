@@ -21,11 +21,16 @@ jobs:
       - name: Setup | Install uv # https://docs.astral.sh/uv/guides/integration/github/#using-uv-in-github-actions
         uses: astral-sh/setup-uv@1edb52594c857e2b5b13128931090f0640537287 # v5
         with:
-          enable-cache: true
-          cache-dependency-glob: "uv.lock"
+          enable-cache: false
 
       - name: Setup | Install Python # https://docs.astral.sh/uv/guides/integration/github/#setting-up-python
         run: uv python install
+
+      - name: Setup | Restore uv cache for docs
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4
+        with:
+          path: ${{ github.workspace }}/.uv_cache
+          key: uv-docs-${{ hashFiles('uv.lock') }}
 
       - name: Run | Build static HTML documentation using Sphinx
         id: build
@@ -36,9 +41,6 @@ jobs:
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:
           path: docs/build/html/
-
-      - name: Post Setup | Minimize uv cache # https://docs.astral.sh/uv/guides/integration/github/#caching
-        run: uv cache prune --ci
 
   # Deployment job
   deploy-docs:

@@ -22,25 +22,13 @@ jobs:
       - name: Setup | Install uv # https://docs.astral.sh/uv/guides/integration/github/#using-uv-in-github-actions
         uses: astral-sh/setup-uv@1edb52594c857e2b5b13128931090f0640537287 # v5
         with:
-          enable-cache: true
-          cache-dependency-glob: "uv.lock"
+          enable-cache: false
 
-      - name: Setup | Install Python and hash version # https://docs.astral.sh/uv/guides/integration/github/#setting-up-python
-        run: |
-          uv python install
-          echo "PYTHON_VERSION_HASH=$(uvx python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
-
-      - name: Setup | Restore pre-commit cache # https://pre-commit.com/#github-actions-example
-        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4
-        with:
-          path: ~/.cache/pre-commit
-          key: pre-commit|${{ env.PYTHON_VERSION_HASH }}|${{ hashFiles('.pre-commit-config.yaml') }}
+      - name: Setup | Install Python # https://docs.astral.sh/uv/guides/integration/github/#setting-up-python
+        run: uv python install
 
       - name: Setup | Install pre-commit # https://pre-commit.com/#usage-in-continuous-integration
         run: uv tool install pre-commit
 
       - name: Run | Test
         run: make test
-
-      - name: Post Setup | Minimize uv cache # https://docs.astral.sh/uv/guides/integration/github/#caching
-        run: uv cache prune --ci
