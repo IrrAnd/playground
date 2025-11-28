@@ -2,7 +2,7 @@
 
 ## Git hooks
 
-his project uses [Git hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks) to maintain
+This project uses [Git hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks) to maintain
 code quality, style consistency, and adherence to the [commit message guidelines](#Commit-message-guidelines).
 So before contributing, please install the hooks via
 ```bash
