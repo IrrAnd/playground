@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.1.2 (2026-09-01)
+
+### Bug Fixes
+
+- **deps**: Update dependency numpy to >=1.1,<=2.5.2
+  ([`ef9c097`](https://github.com/IrrAnd/playground/commit/ef9c097eae1d2282c78659c06b729aadbb6c000c))
+
+
 ## v0.1.1 (2026-07-02)
 
 ### Bug Fixes
