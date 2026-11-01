@@ -44,7 +44,7 @@ jobs:
           git checkout -B ${{ github.ref_name }} ${{ github.sha }}
 
       - name: Action | Semantic Version Release
-        uses: python-semantic-release/python-semantic-release@0dc72ac9058a62054a45f6344c83a423d7f906a8 # v9.21.1
+        uses: python-semantic-release/python-semantic-release@21ed7fa03e4a17ac49406eff4b60d5ad050fbdc2 # v9.21.2
         with:
           github_token: ${{ steps.generate-token.outputs.token }}
           vcs_release: false
